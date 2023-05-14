@@ -3,3 +3,7 @@
 An in-memory cache experiment with an injectable clock.
 
 Run `node test.js` from this folder.
+
+## createCache
+
+TTL uses the injected clock unit. Expiry is inclusive. This simple cache has no automatic size bound.

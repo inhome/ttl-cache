@@ -10,4 +10,6 @@ function createCache(now) {
   };
 }
 
-module.exports = { createCache: createCache };
+function cacheKey(parts) { return JSON.stringify(parts); }
+
+module.exports = { createCache: createCache, cacheKey: cacheKey };
