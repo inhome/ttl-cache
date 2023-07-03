@@ -12,4 +12,12 @@ function createCache(now) {
 
 function cacheKey(parts) { return JSON.stringify(parts); }
 
-module.exports = { createCache: createCache, cacheKey: cacheKey };
+async function loadCached(cache, key, ttl, loader) {
+  const hit = cache.get(key);
+  if (hit !== undefined) return hit;
+  const value = await loader();
+  cache.set(key, value, ttl);
+  return value;
+}
+
+module.exports = { createCache: createCache, cacheKey: cacheKey, loadCached: loadCached };
