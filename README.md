@@ -11,3 +11,7 @@ TTL uses the injected clock unit. Expiry is inclusive. This simple cache has no 
 ## cacheKey
 
 Encode arrays of JSON-safe primitive parts without delimiter collisions. Unsupported values need validation before use.
+
+## loadCached
+
+Undefined behaves as a miss. Concurrent misses are not deduplicated by this helper.

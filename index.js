@@ -20,4 +20,13 @@ async function loadCached(cache, key, ttl, loader) {
   return value;
 }
 
-module.exports = { createCache: createCache, cacheKey: cacheKey, loadCached: loadCached };
+function createSingleFlight() {
+  const running = new Map();
+  return function (key, operation) {
+    if (running.has(key)) return running.get(key);
+    const promise = Promise.resolve().then(operation).finally(function () { running.delete(key); });
+    running.set(key, promise); return promise;
+  };
+}
+
+module.exports = { createCache: createCache, cacheKey: cacheKey, loadCached: loadCached, createSingleFlight: createSingleFlight };
