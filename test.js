@@ -21,3 +21,11 @@ async function checkLoad() {
 }
 checkLoad().catch(function (error) { console.error(error); process.exitCode = 1; });
 
+async function checkFlight() {
+  var run = lib.createSingleFlight(), calls = 0;
+  var task = function () { calls++; return 9; };
+  assert.deepStrictEqual(await Promise.all([run("a", task), run("a", task)]), [9, 9]);
+  assert.strictEqual(calls, 1); await run("a", task); assert.strictEqual(calls, 2);
+}
+checkFlight().catch(function (error) { console.error(error); process.exitCode = 1; });
+
