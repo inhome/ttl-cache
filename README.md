@@ -15,3 +15,7 @@ Encode arrays of JSON-safe primitive parts without delimiter collisions. Unsuppo
 ## loadCached
 
 Undefined behaves as a miss. Concurrent misses are not deduplicated by this helper.
+
+## createSingleFlight
+
+Share work only while a key is in flight, then allow a later call to run again.
